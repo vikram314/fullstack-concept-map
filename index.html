@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstack Development Concept Map</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: auto;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .concept-map {
+            position: relative;
+            min-height: 800px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 40px;
+            overflow: visible;
+        }
+        
+        .node {
+            position: absolute;
+            background: white;
+            border: 3px solid;
+            border-radius: 15px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-width: 120px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 10;
+        }
+        
+        .node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            z-index: 20;
+        }
+        
+        .node.active {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            z-index: 20;
+        }
+        
+        .central { 
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-color: #ee5a24;
+            font-size: 18px;
+            font-weight: 700;
+            top: 350px; 
+            left: 600px;
+            min-width: 200px;
+        }
+        
+        .frontend { 
+            border-color: #3498db;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+        }
+        
+        .backend { 
+            border-color: #27ae60;
+            background: linear-gradient(135deg, #55efc4, #00b894);
+            color: white;
+        }
+        
+        .database { 
+            border-color: #9b59b6;
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: white;
+        }
+        
+        .devops { 
+            border-color: #e17055;
+            background: linear-gradient(135deg, #fab1a0, #e17055);
+            color: white;
+        }
+        
+        .tools { 
+            border-color: #fdcb6e;
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            color: white;
+        }
+        
+        .skills { 
+            border-color: #fd79a8;
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+        }
+        
+        .connection {
+            position: absolute;
+            background: linear-gradient(90deg, #ddd, #bbb);
+            height: 3px;
+            z-index: 1;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .connection.active {
+            background: linear-gradient(90deg, #ff6b6b, #ee5a24);
+            height: 4px;
+            opacity: 1;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+        
+        .legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 12px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            max-width: 250px;
+        }
+        
+        .tooltip.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Fullstack Development Concept Map</h1>
+        
+        <div class="legend">
+            <h3 style="margin-top: 0;">Categories</h3>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #74b9ff, #0984e3);"></div>
+                Frontend
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #55efc4, #00b894);"></div>
+                Backend
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7);"></div>
+                Database
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #fab1a0, #e17055);"></div>
+                DevOps
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #fdcb6e, #e17055);"></div>
+                Tools
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #fd79a8, #e84393);"></div>
+                Skills
+            </div>
+        </div>
+        
+        <div class="concept-map" id="conceptMap">
+            <!-- Central Node -->
+            <div class="node central" data-connections="html,react,nodejs,mongodb,git,problemsolving" data-tooltip="The complete software development approach covering frontend, backend, databases, and deployment">
+                Fullstack Development
+            </div>
+            
+            <!-- Frontend Technologies -->
+            <div class="node frontend" style="top: 100px; left: 200px;" data-connections="css,javascript" data-tooltip="Structure and content of web pages">HTML</div>
+            <div class="node frontend" style="top: 200px; left: 100px;" data-connections="html,javascript" data-tooltip="Styling and layout of web applications">CSS</div>
+            <div class="node frontend" style="top: 150px; left: 350px;" data-connections="html,css,react,vue" data-tooltip="Programming language for web interactivity">JavaScript</div>
+            <div class="node frontend" style="top: 50px; left: 500px;" data-connections="javascript" data-tooltip="Popular JavaScript library for building user interfaces">React</div>
+            <div class="node frontend" style="top: 250px; left: 350px;" data-connections="javascript" data-tooltip="Progressive JavaScript framework">Vue.js</div>
+            <div class="node frontend" style="top: 300px; left: 150px;" data-connections="css" data-tooltip="CSS framework for responsive design">Bootstrap</div>
+            
+            <!-- Backend Technologies -->
+            <div class="node backend" style="top: 450px; left: 900px;" data-connections="javascript,express,mongodb" data-tooltip="JavaScript runtime for server-side development">Node.js</div>
+            <div class="node backend" style="top: 350px; left: 1000px;" data-connections="nodejs" data-tooltip="Web framework for Node.js">Express.js</div>
+            <div class="node backend" style="top: 550px; left: 1000px;" data-connections="django" data-tooltip="High-level programming language">Python</div>
+            <div class="node backend" style="top: 600px; left: 900px;" data-connections="python" data-tooltip="Python web framework">Django</div>
+            <div class="node backend" style="top: 500px; left: 1150px;" data-connections="" data-tooltip="Server-side programming language">PHP</div>
+            <div class="node backend" style="top: 400px; left: 1200px;" data-connections="" data-tooltip="Java web framework">Spring Boot</div>
+            
+            <!-- Database Technologies -->
+            <div class="node database" style="top: 650px; left: 600px;" data-connections="nodejs,express" data-tooltip="NoSQL document database">MongoDB</div>
+            <div class="node database" style="top: 700px; left: 450px;" data-connections="" data-tooltip="Relational database management system">MySQL</div>
+            <div class="node database" style="top: 750px; left: 750px;" data-connections="" data-tooltip="Advanced open-source relational database">PostgreSQL</div>
+            <div class="node database" style="top: 650px; left: 350px;" data-connections="" data-tooltip="In-memory data structure store">Redis</div>
+            
+            <!-- DevOps & Deployment -->
+            <div class="node devops" style="top: 150px; left: 800px;" data-connections="docker,kubernetes" data-tooltip="Cloud computing platform">AWS</div>
+            <div class="node devops" style="top: 200px; left: 950px;" data-connections="aws" data-tooltip="Containerization platform">Docker</div>
+            <div class="node devops" style="top: 100px; left: 950px;" data-connections="docker" data-tooltip="Container orchestration">Kubernetes</div>
+            <div class="node devops" style="top: 250px; left: 800px;" data-connections="" data-tooltip="Continuous Integration/Continuous Deployment">CI/CD</div>
+            
+            <!-- Development Tools -->
+            <div class="node tools" style="top: 50px; left: 50px;" data-connections="" data-tooltip="Version control system for tracking code changes">Git</div>
+            <div class="node tools" style="top: 100px; left: 50px;" data-connections="git" data-tooltip="Web-based Git repository hosting">GitHub</div>
+            <div class="node tools" style="top: 500px; left: 50px;" data-connections="" data-tooltip="Code editor and development environment">VS Code</div>
+            <div class="node tools" style="top: 550px; left: 200px;" data-connections="" data-tooltip="API development and testing tool">Postman</div>
+            
+            <!-- Essential Skills -->
+            <div class="node skills" style="top: 600px; left: 50px;" data-connections="" data-tooltip="Analytical thinking and debugging abilities">Problem Solving</div>
+            <div class="node skills" style="top: 450px; left: 200px;" data-connections="" data-tooltip="Creating and consuming web APIs">REST APIs</div>
+            <div class="node skills" style="top: 400px; left: 50px;" data-connections="" data-tooltip="Ensuring application security">Security</div>
+            <div class="node skills" style="top: 350px; left: 200px;" data-connections="" data-tooltip="Optimizing application performance">Performance</div>
+        </div>
+        
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <script>
+        const nodes = document.querySelectorAll('.node');
+        const tooltip = document.getElementById('tooltip');
+        let connections = [];
+        
+        // Create connections
+        function createConnection(from, to) {
+            const fromRect = from.getBoundingClientRect();
+            const toRect = to.getBoundingClientRect();
+            const mapRect = document.getElementById('conceptMap').getBoundingClientRect();
+            
+            const fromCenterX = fromRect.left + fromRect.width / 2 - mapRect.left;
+            const fromCenterY = fromRect.top + fromRect.height / 2 - mapRect.top;
+            const toCenterX = toRect.left + toRect.width / 2 - mapRect.left;
+            const toCenterY = toRect.top + toRect.height / 2 - mapRect.top;
+            
+            const distance = Math.sqrt(Math.pow(toCenterX - fromCenterX, 2) + Math.pow(toCenterY - fromCenterY, 2));
+            const angle = Math.atan2(toCenterY - fromCenterY, toCenterX - fromCenterX) * 180 / Math.PI;
+            
+            const connection = document.createElement('div');
+            connection.className = 'connection';
+            connection.style.width = distance + 'px';
+            connection.style.left = fromCenterX + 'px';
+            connection.style.top = fromCenterY + 'px';
+            connection.style.transformOrigin = '0 50%';
+            connection.style.transform = `rotate(${angle}deg)`;
+            connection.dataset.from = from.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            connection.dataset.to = to.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+            
+            document.getElementById('conceptMap').appendChild(connection);
+            connections.push(connection);
+        }
+        
+        // Initialize connections
+        nodes.forEach(node => {
+            const connectionIds = node.dataset.connections.split(',').filter(id => id);
+            connectionIds.forEach(connectionId => {
+                const targetNode = Array.from(nodes).find(n => 
+                    n.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g, '').includes(connectionId) ||
+                    connectionId.includes(n.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g, ''))
+                );
+                if (targetNode && targetNode !== node) {
+                    createConnection(node, targetNode);
+                }
+            });
+        });
+        
+        // Add interactivity
+        nodes.forEach(node => {
+            node.addEventListener('mouseenter', (e) => {
+                const nodeId = e.target.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+                
+                // Highlight connected lines
+                connections.forEach(conn => {
+                    if (conn.dataset.from.includes(nodeId) || conn.dataset.to.includes(nodeId)) {
+                        conn.classList.add('active');
+                    }
+                });
+                
+                node.classList.add('active');
+                
+                // Show tooltip
+                const tooltipText = e.target.dataset.tooltip;
+                if (tooltipText) {
+                    tooltip.textContent = tooltipText;
+                    tooltip.classList.add('show');
+                }
+            });
+            
+            node.addEventListener('mouseleave', (e) => {
+                connections.forEach(conn => conn.classList.remove('active'));
+                node.classList.remove('active');
+                tooltip.classList.remove('show');
+            });
+            
+            node.addEventListener('mousemove', (e) => {
+                tooltip.style.left = (e.pageX + 10) + 'px';
+                tooltip.style.top = (e.pageY - 10) + 'px';
+            });
+        });
+        
+        // Add some animations
+        nodes.forEach((node, index) => {
+            node.style.opacity = '0';
+            node.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                node.style.transition = 'all 0.5s ease';
+                node.style.opacity = '1';
+                node.style.transform = 'scale(1)';
+            }, index * 100);
+        });
+    </script>
+</body>
+</html>
